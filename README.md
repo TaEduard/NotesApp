@@ -1,5 +1,8 @@
 # NotesApp
 This is a personal project.
 
-To start the development server:
+Requirements:
+mongo available @ localhost:27017
+
+To start the development servers:
 npm run start-dev
