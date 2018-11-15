@@ -12,6 +12,5 @@ router.route('/signup')
 
 const passportSignIn = passport.authenticate('local', { session: false });
 router.route('/signin')
-    .post(validateBody(schemas.authSchema),passportSignIn, UsersController.signIn);
-
+    .post(validateBody(schemas.authSchema), passportSignIn, UsersController.signIn);
 module.exports = router;

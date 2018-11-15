@@ -7,16 +7,19 @@ const { validateBody, schemas } = require('../utils/utils_validators');
 const NotesController = require('../controllers/notes');
 
 const passportJWT = passport.authenticate('jwt', { session: false });
+router.route('/get_notes')
+    .post(passportJWT, NotesController.getNotes);
+
 router.route('/add_note')
-    .post(passportJWT, NotesController.addNote);
+    .post(validateBody(schemas.newNoteSchema), passportJWT, NotesController.addNote);
 
 router.route('/get_note')
-    .post(passportJWT, NotesController.getNote);
+    .post(validateBody(schemas.noteSchema), passportJWT, NotesController.getNote);
 
 router.route('/del_note')
     .post(passportJWT, NotesController.delNote);
 
 router.route('/update_note')
-    .post(passportJWT, NotesController.updateNote);
+    .post(validateBody(schemas.updateNoteSchema), passportJWT, NotesController.updateNote);
 
-    module.exports = router;
+module.exports = router;

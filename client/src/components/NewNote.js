@@ -2,21 +2,34 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import io from 'socket.io-client';
+
 
 import CustomInput from './CustomInput';
+import CustomTextarea from './CustomTextarea';
 import * as actions from '../actions';
-
-class SignIn extends Component {
+class NewNote extends Component {
     constructor(props) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this);
-    }
-    async onSubmit(formData) {
-        await this.props.SignIn(formData)
-        if (!this.props.errorMessage) {
-            this.props.history.push('/');
+        this.state = {
+            socket: io.connect('http://localhost:5000')
         }
     }
+
+    updateNeeded() {
+        this.state.socket.emit("refresh", localStorage.getItem('JWT_TOKEN'));
+    }
+
+    async onSubmit(formData) {
+        formData.date = new Date();
+        await this.props.NewNote(formData)
+        if (!this.props.errorMessage) {
+            this.updateNeeded();
+            this.props.history.push("/");
+        }
+    }
+
     render() {
         const { handleSubmit } = this.props;
         return (
@@ -25,45 +38,43 @@ class SignIn extends Component {
                     <form onSubmit={handleSubmit(this.onSubmit)}>
                         <fieldset>
                             <Field
-                                name="email"
+                                name="title"
                                 type="text"
-                                id="email"
-                                label="Enter your email"
-                                placeholder="example@example.com"
+                                id="Title"
+                                label="Title:"
+                                placeholder="New Note"
                                 component={CustomInput} />
                         </fieldset>
                         <fieldset>
                             <Field
-                                name="password"
-                                type="password"
-                                id="password"
-                                label="Enter your password"
+                                name="body"
+                                type="text"
+                                id="body"
+                                label=""
                                 placeholder=""
-                                component={CustomInput} />
+                                rows="5"
+                                component={CustomTextarea} />
                         </fieldset>
-
                         {this.props.errorMessage ?
                             <div className="alert  alert-danger">
                                 {this.props.errorMessage}
                             </div>
-
                             : null}
-                        <button type="submit" className="btn btn-primary">Sign In</button>
+                        <button type="submit" className="btn btn-primary" onClick={this.updateNeeded()}>Save</button>
                     </form>
                 </div>
             </div>
-
         );
     }
 }
 
 function MapStateToProps(state) {
     return {
-        errorMessage: state.auth.errorMessage
+        errorMessage: state.note.errorMessage
     }
 }
 
 export default compose(
     connect(MapStateToProps, actions),
-    reduxForm({ form: 'singin' })
-)(SignIn);
+    reduxForm({ form: 'NewNote' })
+)(NewNote);

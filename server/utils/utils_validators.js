@@ -25,6 +25,22 @@ module.exports = {
       lastName: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required()
+    }),
+    noteSchema: Joi.object().keys({
+      title: Joi.string().required(),
+      date: Joi.string().required()
+    }),
+    newNoteSchema: Joi.object().keys({
+      title: Joi.string().required(),
+      body: Joi.string().required(),
+      date: Joi.string().required()
+    }),
+    updateNoteSchema: Joi.object().keys({
+      title: Joi.string().required(),
+      body: Joi.string().required(),
+      date: Joi.string().required(),
+      oldBody: Joi.string().required(),
+      oldDate: Joi.string().required()
     })
   }
 }

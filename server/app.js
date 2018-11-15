@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'test') {
@@ -12,14 +13,17 @@ if (process.env.NODE_ENV === 'test') {
 
 const app = express();
 
+app.use(cors());
+
 //Middlewares
 if (!process.env.NODE_ENV == 'test') {
-    app.user(morgan('dev'));
+  app.user(morgan('dev'));
 }
 app.use(bodyParser.json());
 
 //Routes
 app.use('/users', require('./routes/users'));
-//app.use('/notes', require('./routes/notes'));
+app.use('/notes', require('./routes/notes'));
+
 
 module.exports = app;
