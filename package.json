@@ -26,7 +26,6 @@
     "joi": "^14.0.4",
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
-    "mocha": "^5.2.0",
     "mongoose": "^5.3.10",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.6",
