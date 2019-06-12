@@ -9,7 +9,7 @@ var socketUsers = require('socket.io.users');
 socketUsers.Session(app);
 
 io.origins('**:**')
-
+//test
 io.on('connection', (socket) => {
     socket.on('refresh', (data) => {
         socket.broadcast.emit(data, "")
