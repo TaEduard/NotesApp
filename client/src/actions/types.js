@@ -3,7 +3,4 @@ export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
-export const NOTE_SAVE = 'NOTE_SAVE';
-export const NOTE_EDIT = 'NOTE_EDIT';
-export const NOTE_ERROR = 'NOTE_ERROR';
 

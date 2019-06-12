@@ -16,7 +16,7 @@ class Header extends Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <Link className="navbar-brand" to="/" >NotesApp</Link>
+                    <Link className="navbar-brand" to="/" >SignINTest</Link>
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ml-auto">
 
@@ -31,11 +31,6 @@ class Header extends Component {
 
                             {this.props.isAuth ?
                                 <>
-                                    {!this.props.saveState ?
-                                        <li className="nav-item">
-                                            <Link className="nav-link btn btn-primary" to="/NewNote" >New Note</Link>
-                                        </li>
-                                        : null}
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/" onClick={this.signOut}>Sign Out</Link>
                                     </li>
